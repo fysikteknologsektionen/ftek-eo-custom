@@ -2,7 +2,7 @@
 /*
 Plugin Name: Event Organiser Pro Customisation
 Description: Customises Event Organiser Pro
-Version: 1.0.1
+Version: 1.0.2
 Author: Johan Winther (johwin)
 Text Domain: ftek_eo_custom
 Domain Path: /languages
@@ -10,7 +10,7 @@ GitHub Plugin URI: Fysikteknologsektionen/ftek-eo-custom
 */
 
 // Is Event Organiser Pro installed?
-if( is_plugin_active( 'event-organiser-pro/event-organiser-pro.php') {
+if( is_plugin_active( 'event-organiser-pro/event-organiser-pro.php')) {
     
     /**
     * Use first and last name in export instead of display name
