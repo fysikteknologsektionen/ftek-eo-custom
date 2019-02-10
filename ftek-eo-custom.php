@@ -2,7 +2,7 @@
 /*
 Plugin Name: Event Organiser Pro Customisation
 Description: Customises Event Organiser Pro
-Version: 1.0.3
+Version: 1.0.4
 Author: Johan Winther (johwin)
 Text Domain: ftek_eo_custom
 Domain Path: /languages
