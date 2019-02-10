@@ -17,14 +17,28 @@ add_filter( 'eventorganiser_export_bookings_headers', 'ftek_eo_custom_csv_header
 function ftek_eo_custom_csv_headers( $headers ){
     
     //The plug-in will automatically recognise the bookee_fname & bookee_lname columns, when enabled
-    //$headers['bookee_fname'] = __( 'Bookee (First name)', 'eventorganiserp' );
-    //$headers['bookee_lname'] = __( 'Bookee (Second name)', 'eventorganiserp' );
-    $headers['bookee_fname'] = 'Förnamn';
-    $headers['bookee_lname'] = 'Efternamn';
-    unset( $headers['bookee'] ); //Remove default, 'Bookee' column
+    $headers['bookee_fname'] = __( 'Bookee (First name)', 'eventorganiserp' );
+    $headers['bookee_lname'] = __( 'Bookee (Second name)', 'eventorganiserp' );
+    $headers['ticket']       = __( 'Ticket', 'eventorganiserp' ); // setup in the filter "eventorganiser_export_bookings_cell_ticket" below
+
+    unset( $headers['bookee'] );
+    unset( $headers['booking_ticket_qty'] );
+    unset( $headers['occurrence'] );
+    
+    array_reorder_keys($headers, 'event,booking_date,booking_ref,booking_status,bookee_fname,bookee_lname,bookee_email,ticket,booking_total_price,meta_6,booking_notes');
     
     return $headers;   
 }
+// Show ticket type in booking export
+add_filter( 'eventorganiser_export_bookings_cell_ticket', function( $cell, $booking, $export ) {
+    $tickets = eo_get_booking_tickets( $booking->ID, false );
+    $cell    = '';
+        if( $tickets ){
+            $ticket_names = wp_list_pluck( $tickets, 'ticket_name' );
+            $cell = implode( ', ', $ticket_names );
+        }       
+    return $cell;
+}, 10, 3 );
 
 
 /**
@@ -81,5 +95,24 @@ function ftek_eo_custom_limit_tickets_in_booking( $input, $form, $errors ){
 }
 add_action( 'eventorganiser_validate_booking_submission', 'ftek_eo_custom_limit_tickets_in_booking', 20, 3 );
 
+
+/**
+* function array_reorder_keys
+* reorder the keys of an array in order of specified keynames; all other nodes not in $keynames will come after last $keyname, in normal array order
+* @param array &$array - the array to reorder
+* @param mixed $keynames - a csv or array of keynames, in the order that keys should be reordered
+*/
+function array_reorder_keys(&$array, $keynames){
+    if(empty($array) || !is_array($array) || empty($keynames)) return;
+    if(!is_array($keynames)) $keynames = explode(',',$keynames);
+    if(!empty($keynames)) $keynames = array_reverse($keynames);
+    foreach($keynames as $n){
+        if(array_key_exists($n, $array)){
+            $newarray = array($n=>$array[$n]); //copy the node before unsetting
+            unset($array[$n]); //remove the node
+            $array = $newarray + array_filter($array); //combine copy with filtered array
+        }
+    }
+}
 
 ?>
