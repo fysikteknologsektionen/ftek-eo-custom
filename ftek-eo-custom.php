@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Ftek Event Organiser Customisation
-Description: Customises Event Organiser
-Version: 1.0.0
+Plugin Name: Event Organiser Pro Customisation
+Description: Customises Event Organiser Pro
+Version: 1.0.1
 Author: Johan Winther (johwin)
 Text Domain: ftek_eo_custom
 Domain Path: /languages
