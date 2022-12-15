@@ -2,11 +2,12 @@
 /*
 Plugin Name: Event Organiser Pro Customisation
 Description: Customises Event Organiser Pro
-Version: 1.0.4
+Version: 1.0.5
 Author: Johan Winther (johwin)
 Text Domain: ftek_eo_custom
 Domain Path: /languages
-GitHub Plugin URI: Fysikteknologsektionen/ftek-eo-custom
+GitHub Plugin URI: fysikteknologsektionen/ftek-eo-custom
+Primary Branch: main
 */
 
 
